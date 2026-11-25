@@ -9,17 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
- public function up(): void
+public function up(): void
 {
-    Schema::table('alats', function (Blueprint $table) {
-        $table->string('lokasi')->nullable();
+    Schema::create('alats', function (Blueprint $table) {
+        $table->id();
+        $table->string('kode')->unique();
+        $table->string('nama');
+        $table->unsignedInteger('stok')->default(0);
+        $table->string('kondisi')->default('baik');
+        $table->timestamps();
     });
 }
 
 public function down(): void
 {
-    Schema::table('alats', function (Blueprint $table) {
-        $table->dropColumn('lokasi');
-    });
+    Schema::dropIfExists('alats');
 }
 };
